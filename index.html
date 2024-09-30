@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel Service AI Assistant</title>
+    <style>
+        /* General body styling */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        /* Container for the chat */
+        .container {
+            width: 400px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Chat box styling */
+        .chat-box {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            background: linear-gradient(to bottom, #e1e8f0, #ffffff);
+        }
+
+        /* Messages container */
+        .messages {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        /* Individual message styling */
+        .message {
+            margin-bottom: 15px;
+            padding: 10px;
+            border-radius: 8px;
+            max-width: 75%;
+        }
+
+        /* User message styling */
+        .user-message {
+            background-color: #007bff;
+            color: white;
+            align-self: flex-end;
+        }
+
+        /* Bot message styling */
+        .bot-message {
+            background-color: #f1f1f1;
+            color: #333333;
+            align-self: flex-start;
+        }
+
+        /* Input box styling */
+        .input-box {
+            padding: 15px;
+            background-color: #f9fafb;
+            display: flex;
+            align-items: center;
+            border-top: 1px solid #dddddd;
+        }
+
+        /* Input field styling */
+        input[type="text"] {
+            flex: 1;
+            padding: 12px;
+            font-size: 16px;
+            border-radius: 25px;
+            border: 1px solid #cccccc;
+            outline: none;
+            transition: all 0.2s;
+        }
+
+        /* Input field focus effect */
+        input[type="text"]:focus {
+            border-color: #007bff;
+        }
+
+        /* Send button styling */
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 12px 20px;
+            margin-left: 10px;
+            font-size: 16px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        /* Send button hover effect */
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Media queries for responsiveness */
+        @media (max-width: 450px) {
+            .container {
+                width: 100%;
+                height: 100vh;
+                border-radius: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="chat-box" class="chat-box">
+            <ul id="messages" class="messages"></ul>
+        </div>
+        <div class="input-box">
+            <input type="text" id="user-input" placeholder="Type your message here..." autofocus>
+            <button id="send-btn">Send</button>
+        </div>
+    </div>
+
+    <script>
+        // Send button click event
+        document.getElementById('send-btn').addEventListener('click', function() {
+            const userInput = document.getElementById('user-input').value;
+            if (userInput.trim() !== '') {
+                appendMessage('You', userInput, 'user-message');
+                fetchResponse(userInput);
+                document.getElementById('user-input').value = '';
+            }
+        });
+
+        // Function to append message to the chat
+        function appendMessage(sender, text, className) {
+            const messagesList = document.getElementById('messages');
+            const messageElement = document.createElement('li');
+            messageElement.className = 'message ' + className;
+            messageElement.innerHTML = `<strong>${sender}:</strong> ${text}`;
+            messagesList.appendChild(messageElement);
+            messagesList.scrollTop = messagesList.scrollHeight;
+        }
+
+        // Function to fetch the bot's response
+        function fetchResponse(userInput) {
+            fetch('/chat', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ message: userInput })
+            })
+            .then(response => response.json())
+            .then(data => {
+                appendMessage('Bot', data.reply, 'bot-message');
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+    </script>
+</body>
+</html>
