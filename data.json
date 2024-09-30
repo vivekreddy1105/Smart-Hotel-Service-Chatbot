@@ -1,0 +1,50 @@
+{"hotels" : [
+    {
+        "_id": 1,
+        "hotelName": "The Grand Plaza",
+        "location": {
+            "city": "New York City",
+            "state": "New York",
+            "country": "USA"
+        },
+        "foodItems": [
+            {"name": "Burger", "price": 15.99},
+            {"name": "Pizza", "price": 18.99},
+            {"name": "Salad", "price": 9.99}
+        ],
+        "hotelRating": {
+            "overall": 4.5,
+            "cleanliness": 4.8,
+            "service": 4.7
+        },
+        "reviews": [
+            {"text": "Great hotel, comfortable room!", "rating": 5},
+            {"text": "Good location, nice staff.", "rating": 4}
+        ],
+        "amenities": ["Free Wi-Fi", "Fitness Center", "Pool", "Business Center"]
+    },
+    {
+        "_id": 2,
+        "hotelName": "The Beachside Inn",
+        "location": {
+            "city": "Miami Beach",
+            "state": "Florida",
+            "country": "USA"
+        },
+        "foodItems": [
+            {"name": "Seafood Platter", "price": 25.99},
+            {"name": "Fish Tacos", "price": 12.99},
+            {"name": "Ice Cream", "price": 5.99}
+        ],
+        "hotelRating": {
+            "overall": 4.2,
+            "cleanliness": 4.6,
+            "service": 4.1
+        },
+        "reviews": [
+            {"text": "Love the beach view!", "rating": 4},
+            {"text": "Nice hotel, friendly staff.", "rating": 3}
+        ],
+        "amenities": ["Beach Access", "Free Parking", "Fitness Center"]
+    }
+]}
