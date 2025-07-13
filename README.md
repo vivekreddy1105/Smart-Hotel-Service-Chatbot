@@ -1,4 +1,4 @@
-# Smart Hotel Service Chatbot
+# AIroma: Smart Hotel Service Chatbot
 
 ## Overview
 
